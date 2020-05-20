@@ -14,9 +14,16 @@ def home(request):
     return render(request, template_name = 'home.html')
 
 def shrink_url(request):
+
+    print("request")
+    print(type(request))
+    print(request)
+    print(request.scheme, request.get_host(), request.path)
     complete_url = request.GET["long_url"]
     hash_object = hashlib.md5(complete_url.encode())
     shrinked_url = hash_object.hexdigest()[:8]
+
+    base_url_path = request.scheme + "://" + request.get_host()
 
     try:
         check = URLs.objects.get(shrinked_url=shrinked_url)
@@ -28,6 +35,7 @@ def shrink_url(request):
     print("new shrinked_url : {}".format(shrinked_url))
 
     return render(request, 'home.html', {
+        'base_url_path' : base_url_path,
         'shrinked_url': shrinked_url
     })
 
