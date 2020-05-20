@@ -1,0 +1,59 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl">
+    	<center>
+      <a href="/"><h1>Shrink-itt </h1> </a> 
+  		A simple URL Shortner Service Made with Django made by <a href="https://raunaqness.in">Raunaq</a>. 
+  		</center>
+  		<br>
+    </div>
+  </div>
+
+  
+    	<br>
+    	<center>
+      <h4>Enter Long URL</h4>
+   
+
+		{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+		<form action="{% url 'shrink_url' %}" method="get">
+			{% csrf_token %}
+			<input type="text" name="long_url" min-width="48px" max-width="100px"><br/><br/>
+			<input type="submit" value="Shrink it!" />
+		</form>
+
+		
+
+	</center>
+
+	</div>
+
+	<br>
+
+	<div class="row">
+    	<div class="col-12">
+    		<center>
+    			<br>
+
+			{% if shrinked_url %}
+				<span class="custom">
+					Shortened URL: <br><strong><a href="https://shrink-itt.herokuapp.com/{{shrinked_url}}">https://shrink-itt.herokuapp.com/{{shrinked_url}}</a></strong>
+				</span>
+				{% endif %}
+				
+				{% endblock content %}
+			</center>
+		</div>
+	</div>
+
+  </div>
+
